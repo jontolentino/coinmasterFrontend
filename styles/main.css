@@ -1,0 +1,239 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+	font-size: 1rem;
+	font-family: "Inter";
+	background-color: #e3e3e3;
+	color: #303030;
+
+}
+
+.header-container{
+	max-width: 800px;
+	background-color: #ff6d00;
+	padding: 10px;
+	margin: 0 auto;
+}
+
+#menu{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#menu h1{
+	font-size: 1rem;
+	color: #ffffff;
+}
+
+#menu a{
+	text-decoration: none;
+	color: #ffffff;
+}
+
+/*END OF HEADER*/
+
+/*START OF MAIN CONTENT*/
+
+.main-container{
+	max-width: 800px;
+	background-color: #ffffff;
+	padding: 10px;
+	margin: 0 auto;
+	min-height: 100vh;
+}
+
+.main-container h2{
+	color: #303030;
+	margin-bottom: 15px;
+}
+
+.crypto-tables{
+	width: 100%;
+}
+
+.crypto-tables-titles{
+	text-align: left;
+}
+
+/*TABLES DESIGN STARTS HERE*/
+
+#coin-number{
+	width: 10%;
+} 
+
+#coin-name-info{
+	width: 40%;
+}
+
+#coin-prices{
+	width: 20%;
+}
+
+#coin-pl-24h{
+	width: 15%;
+}
+
+#coin-pl-7d{
+	width: 15%;
+}
+
+
+
+table, th, td{
+	border: 1px solid #e3e3e3;
+  	border-collapse: collapse;
+  	padding-left: 10px;
+}
+
+table{
+	margin-bottom: 50px;
+}
+
+th{
+	padding-top: 17px;
+	padding-bottom: 17px;
+	background-color: #f2f2f2;
+	position: -webkit-sticky; /* Safari */
+ 	position: sticky;
+  	top: 0;
+  	/*margin-top: 0px;*/
+}
+
+td{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+td img{
+	padding-right: 10px;
+	width: 30px;
+	height: auto;
+}
+
+.coin-info-div{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+tr:nth-child(odd){
+	background-color: #f2f2f2;
+}
+
+tr:hover {
+	background-color: #dddddd;
+}
+
+.coin-link{
+	text-decoration: none;
+	color: #303030;
+}
+
+.coin-link:hover{
+	text-decoration: underline;
+}
+
+.red{
+	color: red;
+}
+
+.green{
+	color: green;
+}
+
+#wallet-loader-gif{
+	width: 100%;
+	height: auto;
+}
+
+
+/*#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers */
+
+#coin-chart-now{
+	display: none;
+	width: 100%;
+	height: auto;
+}
+
+.chartButton{
+	padding: 10px;
+	border: none;
+	font-family: "Inter";
+	border: 1px solid rgb(196, 196, 196);
+	display: none;
+}
+
+.chartButton:hover{
+	border: 1px solid rgb(116, 0, 184);
+}
+
+.chartButton:active{
+	background-color: #d4d4d4;
+}
+
+/* .form-calculator-container{
+	padding-left: 30px;
+} */
+
+#investmentMuchID{
+	padding: 5px;
+	width: 100%;
+	margin-bottom: 10px;
+	font-size: 18px;
+	font-family: "Inter";
+}
+
+#selectTimePlease{
+	padding-bottom: 5px;
+}
+
+/* .radio-label{
+	padding-left: 10px;
+	padding-bottom: 5px;
+} */
+
+#calculateButton{
+	width: 200px;
+	padding: 10px;
+	border: none;
+	font-family: "Inter";
+	border: 1px solid rgb(196, 196, 196);
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
+#calculateButton:hover{
+	border: 1px solid rgb(116, 0, 184);
+}
+
+#calculateButton:active{
+	background-color: #d4d4d4;
+
+}
+
+#investmentNowWorth, #profitLossPara{
+	font-size: 28px;
+	padding-bottom: 30px;
+}
+
+.pl-container{
+	margin-top: 10px;
+	display: none;
+}
+
+input[name="TypeList"]{
+	padding: 5px;
+	width: 100%;
+	margin-bottom: 10px;
+	font-size: 18px;
+	font-family: "Inter";
+}

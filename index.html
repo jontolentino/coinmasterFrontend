@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+<!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+<!-- <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet"> -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="styles/main.css">
+</head>
+<body>
+	<header>
+		<div class="header-container">
+			<div id="menu">
+				<h1><a href="index.html">Coinmaster - Cryptocurrency Tracker and P/L Simulator</a></h1>
+				<!-- <a href="#Login">Login</a> -->
+			</div>
+		</div>	
+	</header>
+	<main>
+		<div id="main-container" class="main-container">
+			<h2 id="semi-title">Updated Cryptocurrency Prices By Marketcap</h2>
+			
+			<!-- TABLES -->
+			<table class="crypto-tables" id="current-crypto-tables">
+			  <tr class="crypto-tables-titles">
+			  	<th id="coin-number">#</th>
+			    <th id="coin-name-info">Coin</th>
+			    <th id="coin-prices">Price</th>
+			    <th id="coin-pl-24h">24h</th>
+			    <th id="coin-pl-7d">7d</th>
+			  </tr>
+
+			
+			</table>
+			<!-- IMAGE LOADER GIF -->
+			<img id="wallet-loader-gif" src="assets/tableloadingindex.gif">
+			<button type="button" id="button30Chart" class="chartButton" onclick="charting30Days()">30 Days Chart</button>
+			<button type="button" id="button90Chart" class="chartButton" onclick="charting90Days()">90 Days Chart</button>
+			<button type="button" id="button180Chart" class="chartButton" onclick="charting180Days()">180 Days Chart</button>
+			<div class="coin-chart-here" id="coin-chart-now">
+				<canvas id="myChart"></canvas>
+		  </div>
+		  <div class="pl-container" id="profitLossContainer">
+			  <h2>Profit / Loss Calculator</h2>
+			  	<div class="form-calculator-container">
+					<form>
+						<p>Investment (Peso)</p>
+						<input type="number" name="investmentMuch" id="investmentMuchID">
+
+							<p id="selectTimePlease">Invested When:</p>
+							<input  name="TypeList" list="TypeList" placeholder="Select Time" id="timeValueList"/>
+								<datalist id="TypeList">
+									<option value="Yesterday">
+									<option value="7 Days Ago">
+									<option value="30 Days Ago">
+								</datalist>
+							<br>
+							<button type="button" id="calculateButton" onclick="calculateNow()">Calculate</button>
+					</form>
+				</div>
+				<p id="profitLossPara">Profit or Loss Percentage: <span id="pl-span">__</span>%</p>
+				<p id="investmentNowWorth">Your investment is now worth: ₱<span id="nowWorthSpan">__</span></p>
+		  </div>
+		</div>
+	</main>
+
+	<!-- <img id="wallet-loader-gif" src="assets/walletloads.gif"> -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="main.js"></script>
+
+</body>
+</html>
