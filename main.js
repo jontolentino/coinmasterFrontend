@@ -1,5 +1,7 @@
 // let coinsDATA = [];
 let coinUsing;
+let usedCoinData;
+let tempCoinDataArr = [];
 async function testCoinClick(coinID){
   // const coinRequest = await fetch (`https://api.coingecko.com/api/v3/coins/${coinID}`)
   // const coinResponse = await coinRequest.json()
@@ -88,7 +90,8 @@ plContainer.style.display = "block"
 async function getCoinsData() {
     const coinsAPIRequest = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h%2C7d')
     const coinsAPIResponse = await coinsAPIRequest.json()
-    // console.log(coinsAPIResponse[0])
+    usedCoinData = coinsAPIResponse;
+	// console.log(coinsAPIResponse[0])
     // console.log(coinsAPIResponse[0].id)
 
     let coinsDATA = coinsAPIResponse.map(item => {
@@ -145,21 +148,6 @@ async function getCoinsData() {
 		let newRow = tableRef.insertRow(-1)
 		newRow.innerHTML = coinCurrent
 
-		// table.appendChild(coinCurrent)
-		// console.log(table)
-		// let p24hDataStyle = document.getElementByClassName("p24h").value
-		// console.log(p24hDataStyle)
-		// if (p24hDataStyle > 0){
-		// 	document.getElementByClassName('p24h').classList.add("green")
-		// } else if (p24h < 0){
-		// 	document.getElementByClassName('p24h').classList.add("red")
-		// }
-x
-		// if (p7d > 0){
-		// 	document.getElementByClassName('p7d').classList.add("green")
-		// } else if (p7d < 0){
-		// 	document.getElementByClassName('p24h').classList.add("red")
-		// }
     }
 
     let imageLoader = document.getElementById("wallet-loader-gif")
@@ -167,6 +155,168 @@ x
 
   //   	let p24hClass = document.querySelectorAll("p24h")
 		// console.log(p24hClass)
+}
+
+function asortUpPrice(){
+	
+	for (var i = 0; i < usedCoinData.length; i++){
+		let marketCapRank = usedCoinData[i].market_cap_rank
+    	let coinImage = usedCoinData[i].image
+    	let coinID = usedCoinData[i].id
+    	let coinName = usedCoinData[i].name
+    	let coinTicker = usedCoinData[i].symbol.toUpperCase()
+    	let coinCurrentPrice = usedCoinData[i].current_price 
+		// .toLocaleString("en-US")
+    	let p24h = parseFloat(usedCoinData[i].price_change_percentage_24h_in_currency).toFixed(2)
+    	let p7d = parseFloat(usedCoinData[i].price_change_percentage_7d_in_currency).toFixed(2)
+
+		let tempCoinObject = {marketCapRank, coinImage, coinID, coinName, coinTicker, coinCurrentPrice, p24h, p7d}
+		tempCoinDataArr.push(tempCoinObject)
+	}
+	// console.log("temp coin data here")
+	// console.log(tempCoinDataArr);
+
+	let tempArr = tempCoinDataArr.sort(function (a,b){
+		return parseInt(b.coinCurrentPrice) - parseInt(a.coinCurrentPrice)
+	})
+
+	let currentTable = document.getElementById("current-crypto-tables")
+	currentTable.innerHTML = `
+			<tr class="crypto-tables-titles">
+			  	<th id="coin-number">#</th>
+			    <th id="coin-name-info">Coin</th>
+			    <th id="coin-prices">Price <span id="arrow-up-price" onclick="asortUpPrice()">↑</span><span id="arrow-down-price" onclick="asortDownPrice()">↓</span></th>
+			    <th id="coin-pl-24h">24h</th>
+			    <th id="coin-pl-7d">7d</th>
+			  </tr>
+	`
+
+	for (var i = 0; i < tempArr.length; i++) {
+    	let marketCapRank = tempArr[i].marketCapRank
+    	let coinImage = tempArr[i].coinImage
+    	let coinID = tempArr[i].coinID
+    	let coinName = tempArr[i].coinName
+    	let coinTicker = tempArr[i].coinTicker.toUpperCase()
+    	let coinCurrentPrice = tempArr[i].coinCurrentPrice.toLocaleString("en-US")
+    	let p24h = parseFloat(tempArr[i].p24h).toFixed(2)
+    	let p7d = parseFloat(tempArr[i].p7d).toFixed(2)
+    	let p24hTD = ``
+    	let p7dTD = ``
+    	
+    	if (p24h > 0){
+    		p24hTD = `<td class="green">${p24h}%</td>`
+    	} else if (p24h < 0){
+    		p24hTD = `<td class="red">${p24h}%</td>`
+    	}
+
+    	if (p7d > 0){
+    		p7dTD = `<td class="green">${p7d}%</td>`
+    	} else if (p7d < 0){
+    		p7dTD = `<td class="red">${p7d}%</td>`
+    	}
+
+    	// console.log(coinName)
+
+	 	let coinCurrent = `
+		    <td>${marketCapRank}</td>
+		    <td>
+		    	<div class="coin-info-div">
+					<img src="${coinImage}" alt="${coinID} logo">
+					<p><a class="coin-link" href="#" onclick="testCoinClick('${coinID}')"><b>${coinName}</b></a> - <span class="ticker">${coinTicker}</span></p>
+				</div>
+			</td>
+		    <td>$${coinCurrentPrice}</td>
+		    ${p24hTD}
+		    ${p7dTD}
+		  `
+
+		let tableRef = document.getElementById("current-crypto-tables")
+		let newRow = tableRef.insertRow(-1)
+		newRow.innerHTML = coinCurrent
+
+    }
+
+    // let imageLoader = document.getElementById("wallet-loader-gif")
+    // imageLoader.remove()
+}
+
+function asortDownPrice(){
+	for (var i = 0; i < usedCoinData.length; i++){
+		let marketCapRank = usedCoinData[i].market_cap_rank
+    	let coinImage = usedCoinData[i].image
+    	let coinID = usedCoinData[i].id
+    	let coinName = usedCoinData[i].name
+    	let coinTicker = usedCoinData[i].symbol.toUpperCase()
+    	let coinCurrentPrice = usedCoinData[i].current_price 
+		// .toLocaleString("en-US")
+    	let p24h = parseFloat(usedCoinData[i].price_change_percentage_24h_in_currency).toFixed(2)
+    	let p7d = parseFloat(usedCoinData[i].price_change_percentage_7d_in_currency).toFixed(2)
+
+		let tempCoinObject = {marketCapRank, coinImage, coinID, coinName, coinTicker, coinCurrentPrice, p24h, p7d}
+		tempCoinDataArr.push(tempCoinObject)
+	}
+	// console.log("temp coin data here")
+	// console.log(tempCoinDataArr);
+
+	let tempArr = tempCoinDataArr.sort(function (a,b){
+		return parseInt(a.coinCurrentPrice) - parseInt(b.coinCurrentPrice)
+	})
+
+	let currentTable = document.getElementById("current-crypto-tables")
+	currentTable.innerHTML = `
+			<tr class="crypto-tables-titles">
+			  	<th id="coin-number">#</th>
+			    <th id="coin-name-info">Coin</th>
+			    <th id="coin-prices">Price <span id="arrow-up-price" onclick="asortUpPrice()">↑</span><span id="arrow-down-price" onclick="asortDownPrice()">↓</span></th>
+			    <th id="coin-pl-24h">24h</th>
+			    <th id="coin-pl-7d">7d</th>
+			  </tr>
+	`
+
+	for (var i = 0; i < tempArr.length; i++) {
+    	let marketCapRank = tempArr[i].marketCapRank
+    	let coinImage = tempArr[i].coinImage
+    	let coinID = tempArr[i].coinID
+    	let coinName = tempArr[i].coinName
+    	let coinTicker = tempArr[i].coinTicker.toUpperCase()
+    	let coinCurrentPrice = tempArr[i].coinCurrentPrice.toLocaleString("en-US")
+    	let p24h = parseFloat(tempArr[i].p24h).toFixed(2)
+    	let p7d = parseFloat(tempArr[i].p7d).toFixed(2)
+    	let p24hTD = ``
+    	let p7dTD = ``
+    	
+    	if (p24h > 0){
+    		p24hTD = `<td class="green">${p24h}%</td>`
+    	} else if (p24h < 0){
+    		p24hTD = `<td class="red">${p24h}%</td>`
+    	}
+
+    	if (p7d > 0){
+    		p7dTD = `<td class="green">${p7d}%</td>`
+    	} else if (p7d < 0){
+    		p7dTD = `<td class="red">${p7d}%</td>`
+    	}
+
+    	// console.log(coinName)
+
+	 	let coinCurrent = `
+		    <td>${marketCapRank}</td>
+		    <td>
+		    	<div class="coin-info-div">
+					<img src="${coinImage}" alt="${coinID} logo">
+					<p><a class="coin-link" href="#" onclick="testCoinClick('${coinID}')"><b>${coinName}</b></a> - <span class="ticker">${coinTicker}</span></p>
+				</div>
+			</td>
+		    <td>$${coinCurrentPrice}</td>
+		    ${p24hTD}
+		    ${p7dTD}
+		  `
+
+		let tableRef = document.getElementById("current-crypto-tables")
+		let newRow = tableRef.insertRow(-1)
+		newRow.innerHTML = coinCurrent
+
+    }
 }
 
 getCoinsData()
