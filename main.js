@@ -1,7 +1,7 @@
 // let coinsDATA = [];
 let coinUsing;
 let usedCoinData;
-let tempCoinDataArr = [];
+// let tempCoinDataArr = [];
 async function testCoinClick(coinID){
   // const coinRequest = await fetch (`https://api.coingecko.com/api/v3/coins/${coinID}`)
   // const coinResponse = await coinRequest.json()
@@ -158,7 +158,7 @@ async function getCoinsData() {
 }
 
 function asortUpPrice(){
-	
+	let tempCoinDataArr = [];
 	for (var i = 0; i < usedCoinData.length; i++){
 		let marketCapRank = usedCoinData[i].market_cap_rank
     	let coinImage = usedCoinData[i].image
@@ -235,12 +235,13 @@ function asortUpPrice(){
 		newRow.innerHTML = coinCurrent
 
     }
-
+	tempArr = [];
     // let imageLoader = document.getElementById("wallet-loader-gif")
     // imageLoader.remove()
 }
 
 function asortDownPrice(){
+	let tempCoinDataArr = [];
 	for (var i = 0; i < usedCoinData.length; i++){
 		let marketCapRank = usedCoinData[i].market_cap_rank
     	let coinImage = usedCoinData[i].image
@@ -317,6 +318,7 @@ function asortDownPrice(){
 		newRow.innerHTML = coinCurrent
 
     }
+	tempArr = [];
 }
 
 getCoinsData()
